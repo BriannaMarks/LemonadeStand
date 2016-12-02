@@ -8,5 +8,15 @@ namespace LemonadeStand
 {
     class Player
     {
+        double playerMoney;
+        public double PlayerStartingMoney()
+        {
+            playerMoney = 20.00;
+            return playerMoney;
+        }
+        public double ReturnCurrentPlayerMoney()
+        {
+            return playerMoney;
+        }
     }
 }
