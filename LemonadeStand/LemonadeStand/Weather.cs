@@ -11,10 +11,6 @@ namespace LemonadeStand
 
         string weatherToday;
         int temperature;
-        public string GetWeatherToday()
-        {
-            return weatherToday;
-        }
         public string WeatherGenerator()
         {
             List<string> Weather = new List<string> {"Thunderstorm", "Overcast", "Partly Cloudy", "Sunny"};
@@ -40,10 +36,9 @@ namespace LemonadeStand
                 default:
                     return WeatherGenerator();
             }
-
             return weatherToday;
         }
-        public int TemperatureGenerator()
+        private int TemperatureGenerator()
         {
             Random random = new Random();
             temperature = random.Next(40, 100);

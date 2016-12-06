@@ -16,6 +16,7 @@ namespace LemonadeStand
 
         int choosenNumberOfDays;
         bool startDailySale;
+        int w;
         public void RunLemonadeStand()
         {
             GameDay = new Day();
@@ -37,7 +38,7 @@ namespace LemonadeStand
         {
             Console.WriteLine("Welcome to Lemonade Stand!");
         }
-        public void OfferInstructions()
+        private void OfferInstructions()
         {
             string offerInstructions;
             Console.WriteLine("Would you like to read the instructions?");
@@ -86,6 +87,10 @@ namespace LemonadeStand
                     choosenNumberOfDays = 28;
                     Console.WriteLine("Ok, you will sell lemonade for one month. Good luck!");
                     return choosenNumberOfDays;
+                case "help":
+                    UserInterface.Instructions();
+                    ChooseNumberOfDays();
+                    return choosenNumberOfDays;
                 default:
                     Console.WriteLine("Invalid game length. Please try again.");
                     Console.WriteLine(" ");
@@ -93,7 +98,7 @@ namespace LemonadeStand
                     return choosenNumberOfDays;
             }
         }
-        public void StartTheDay()
+        private void StartTheDay()
         {
             int i;
             for (i = 1 ; i <= choosenNumberOfDays; i++)
@@ -115,13 +120,14 @@ namespace LemonadeStand
             switch (Console.ReadLine().ToLower())
             {
                 case "check the weather":
-                    LocalWeather.WeatherGenerator();
+                    RunWeather();
                     break;
                 case "check your supply inventory":
                     PlayerInventory.GetAllInventories();
                     break;
                 case "go to the store":
-
+                    Supermarket.StoreMenu();
+                    break;
                 case "start selling lemonade":
                     StartDailySale();
                     break;
@@ -138,10 +144,23 @@ namespace LemonadeStand
             }
             return startDailySale;
         }
-        public bool StartDailySale()
+        private bool StartDailySale()
         {
             startDailySale = true;
             return startDailySale;
+        }
+        private void RunWeather()
+        {
+            if (w <= 0)
+            {
+                LocalWeather.WeatherGenerator();
+                w++;
+            }
+            else
+            {
+                LocalWeather.ForcastForToday();
+            }
+            
         }
     }
 }

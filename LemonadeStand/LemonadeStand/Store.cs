@@ -17,7 +17,7 @@ namespace LemonadeStand
             Console.WriteLine("-Go Back");
             StoreChoice();
         }
-        public void StoreChoice()
+        private void StoreChoice()
         {
             switch (Console.ReadLine().ToLower())
             {
@@ -25,7 +25,10 @@ namespace LemonadeStand
                 case "sugar":
                 case "ice":
                 case "go back":
+                case "help":
+
                 default:
+                    Console.WriteLine("Invalid selection. Please enter what you would like to buy.");
                     StoreChoice();
                     break;
             }

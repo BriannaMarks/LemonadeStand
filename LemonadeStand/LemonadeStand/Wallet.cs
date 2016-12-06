@@ -10,18 +10,18 @@ namespace LemonadeStand
     {
         int playerMoney;
         bool afordable;
-        public bool CompareMoneyToCost()
-        {
-        if ()
-            {
-                afordable = true;
-                return afordable;
-            }
-            else
-            {
-                afordable = false;
-                return afordable;
-            }
-        }
+        //public bool CompareMoneyToCost()
+        //{
+        //if ()
+        //    {
+        //        afordable = true;
+        //        return afordable;
+        //    }
+        //    else
+        //    {
+        //        afordable = false;
+        //        return afordable;
+        //    }
+        //}
     }
 }

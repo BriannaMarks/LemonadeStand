@@ -11,17 +11,17 @@ namespace LemonadeStand
         int lemonInventory;
         int sugarInventory;
         int iceInventory;
-        public int GetLemonInventory()
+        private int GetLemonInventory()
         {
             Console.WriteLine("Lemons: {0}", lemonInventory);
             return lemonInventory;
         }
-        public int GetSugarInventory()
+        private int GetSugarInventory()
         {
             Console.WriteLine("Sugar: {0}", sugarInventory);
             return sugarInventory;
         }
-        public int GetIceInventory()
+        private int GetIceInventory()
         {
             Console.WriteLine("Ice: {0}", iceInventory);
             return iceInventory;
