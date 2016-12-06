@@ -8,17 +8,27 @@ namespace LemonadeStand
 {
     class Game
     {
-        Day GameDay = new Day();
-        Player Entrepreneur = new Player();        
+        Day GameDay;
+        Player Entrepreneur;
+        Store Supermarket;
+        Inventory PlayerInventory;
+        Weather LocalWeather;
 
         int choosenNumberOfDays;
-
+        bool startDailySale;
         public void RunLemonadeStand()
         {
+            GameDay = new Day();
+            Entrepreneur = new Player();
+            Supermarket = new Store();
+            PlayerInventory = new Inventory();
+            LocalWeather = new Weather();
+
             IntroText();
             OfferInstructions();
             ChooseNumberOfDays();
             Entrepreneur.PlayerStartingMoney();
+            PlayerInventory.EmptyAllInventory();
             StartTheDay();
 
             Console.ReadKey();
@@ -88,12 +98,50 @@ namespace LemonadeStand
             int i;
             for (i = 1 ; i <= choosenNumberOfDays; i++)
             {
+                startDailySale = false;
                 Console.WriteLine("It's day {0}", i);
-                Console.WriteLine("You have ${0}", Entrepreneur.ReturnCurrentPlayerMoney());
-                UserInterface.DailyStartChoices();
-                
+                Console.WriteLine("You have ${0}", Entrepreneur.GetPlayerMoney());
+                while (startDailySale == false)
+                {
+                    UserInterface.DailyStartChoices();
+                    PlayerStartChoice();
+                }
+
+
             }
         }
+        private bool PlayerStartChoice()
+        {
+            switch (Console.ReadLine().ToLower())
+            {
+                case "check the weather":
+                    LocalWeather.WeatherGenerator();
+                    break;
+                case "check your supply inventory":
+                    PlayerInventory.GetAllInventories();
+                    break;
+                case "go to the store":
 
+                case "start selling lemonade":
+                    StartDailySale();
+                    break;
+                //case "save your current progress":
+                case "help":
+                    UserInterface.Instructions();
+                    break;
+                default:
+                    Console.WriteLine("Invalid entry. Please select where you would like to go.");
+                    Console.WriteLine("Enter 'help' for more information.");
+                    PlayerStartChoice();
+                    break;
+
+            }
+            return startDailySale;
+        }
+        public bool StartDailySale()
+        {
+            startDailySale = true;
+            return startDailySale;
+        }
     }
 }

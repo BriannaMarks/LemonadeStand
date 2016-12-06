@@ -21,31 +21,10 @@ namespace LemonadeStand
             Console.WriteLine("-Check the weather");
             Console.WriteLine("-Check your supply inventory");
             Console.WriteLine("-Go to the store");
+            Console.WriteLine("-Start selling lemonade");
             //Console.WriteLine("-Save your current progress");
-            PlayerStartChoice();
         }
-        private static void PlayerStartChoice()
-        {
-            switch (Console.ReadLine().ToLower())
-            {
-                case "check the weather":
 
-                case "check your supply inventory":
-
-                case "go to the store":
-
-                //case "save your current progress":
-                case "help":
-                    Instructions();
-                    break;
-                default:
-                    Console.WriteLine("Invalid entry. Please select where you would like to go.");
-                    Console.WriteLine("Enter 'help' for more information.");
-                    PlayerStartChoice();
-                    break;
-
-            }
-        }
 
     }
 }

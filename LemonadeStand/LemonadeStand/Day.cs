@@ -9,10 +9,5 @@ namespace LemonadeStand
     class Day
     {
 
-        //int currentDayNumber;
-        //public int ReturnCurrentDayNumber()
-        //{
-        //    return currentDayNumber;
-        //}
     }
 }

@@ -14,7 +14,7 @@ namespace LemonadeStand
             playerMoney = 20.00;
             return playerMoney;
         }
-        public double ReturnCurrentPlayerMoney()
+        public double GetPlayerMoney()
         {
             return playerMoney;
         }
