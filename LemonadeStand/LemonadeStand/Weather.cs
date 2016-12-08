@@ -8,10 +8,10 @@ namespace LemonadeStand
 {
     class Weather
     {
-
+        int w;
         string weatherToday;
         int temperature;
-        public string WeatherGenerator()
+        private string WeatherGenerator()
         {
             List<string> Weather = new List<string> {"Thunderstorm", "Overcast", "Partly Cloudy", "Sunny"};
             int weather = new Random().Next(Weather.Count);
@@ -45,11 +45,24 @@ namespace LemonadeStand
             ForcastForToday();
             return temperature;
         }
-        public void ForcastForToday()
+        private void ForcastForToday()
         {
             Console.WriteLine("");
             Console.WriteLine("Today it's {0} and {1}°F", weatherToday, temperature);
             Console.WriteLine("");
+        }
+        public void RunWeather()
+        {
+            if (w <= 0)
+            {
+                WeatherGenerator();
+                w++;
+            }
+            else
+            {
+                ForcastForToday();
+            }
+
         }
     }
 }

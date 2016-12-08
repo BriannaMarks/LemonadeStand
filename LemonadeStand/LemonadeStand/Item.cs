@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand
 {
-    class Program
+    class Item
     {
-        static void Main(string[] args)
+        protected double costPerItem;
+
+        protected double GetItemPrice()
         {
-            Game LemonadeStand = new Game();
-            LemonadeStand.RunLemonadeStand();
+            return costPerItem;
         }
+
+
     }
 }
