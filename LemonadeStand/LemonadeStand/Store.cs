@@ -11,7 +11,8 @@ namespace LemonadeStand
         double amountOfItem;
         bool checkBalance;
         double totlaItemCost;
-        double playerMoney;
+        double addToInventory;
+
         public void StoreMenu()
         {
             Console.WriteLine("What would you like to buy?");
@@ -21,18 +22,21 @@ namespace LemonadeStand
             Console.WriteLine("-Go Back");
 
         }
-        public void StoreChoice(Player player)
+        public void StoreChoice(Player player, Inventory inventory)
         {
             switch (Console.ReadLine().ToLower())
             {
                 case "lemons":
-                    selectItemAmount("lemon", new Lemon().GetLemonPrice(),player);
+                    selectItemAmount("lemon", new Lemon().GetLemonPrice(), player, inventory);
+                    inventory.AddToLemonInventory(amountOfItem);
                     break;
                 case "sugar":
-                    selectItemAmount("sugar", new Sugar().GetSugarPrice(), player);
+                    selectItemAmount("sugar", new Sugar().GetSugarPrice(), player, inventory);
+                    inventory.AddToSugarInventory(amountOfItem);
                     break;
                 case "ice":
-                    selectItemAmount("ice", new Ice().GetIcePrice(), player);
+                    selectItemAmount("ice", new Ice().GetIcePrice(), player, inventory);
+                    inventory.AddToIceInventory(amountOfItem);
                     break;
                 case "go back":
                     break;
@@ -40,11 +44,11 @@ namespace LemonadeStand
                     break;
                 default:
                     Console.WriteLine("Invalid selection. Please enter what you would like to buy.");
-                    StoreChoice(player);
+                    StoreChoice(player, inventory);
                     break;
             }
         }
-        protected void selectItemAmount(string itemName, double costPerItem, Player player)
+        protected void selectItemAmount(string itemName, double costPerItem, Player player, Inventory inventory)
         {
             Console.WriteLine("How much {0} would you like?", itemName);
             try
@@ -54,35 +58,42 @@ namespace LemonadeStand
             catch
             {
                 Console.WriteLine("Invalid entry. Please enter the amount you would like to buy.");
-                selectItemAmount(itemName, costPerItem, player);
+                selectItemAmount(itemName, costPerItem, player, inventory);
             }
-            TotalItemCost(itemName, costPerItem, amountOfItem, player);
+            TotalItemCost(itemName, costPerItem, amountOfItem, player, inventory);
         }
-        public double TotalItemCost(string itemName, double costPerItem, double amountOfItem, Player player)
+        public void TotalItemCost(string itemName, double costPerItem, double amountOfItem, Player player, Inventory inventory)
         {
             
             checkBalance = player.CheckBalance(costPerItem * amountOfItem);
             if (checkBalance == true)
             {
+                double x;
+                for (x = 0; x <= amountOfItem; x++)
+                {
+                    AddToAnyInventory();
+                }
                 totlaItemCost = (costPerItem * amountOfItem);
-                playerMoney = player.GetPlayerMoney();
-                playerMoney = playerMoney - totlaItemCost;
+                player.playerMoney = player.GetPlayerMoney();
+                player.playerMoney = player.playerMoney - totlaItemCost;
                 Console.WriteLine("You bought {0} units of {1}", amountOfItem, itemName);
-                Console.WriteLine("You now have ${0} left", playerMoney);
+                Console.WriteLine("You now have ${0} left", player.playerMoney);
                 Console.WriteLine("");
-                return playerMoney;
             }
             else if (checkBalance == false)
             {
                 Console.WriteLine("You don't have enough money to purchase that. Enter a smaller amount.");
-                selectItemAmount(itemName, costPerItem, player);
-                return playerMoney;
+                selectItemAmount(itemName, costPerItem, player, inventory);
             }
             else
             {
                 Console.WriteLine("ERROR");
-                return playerMoney;
             }
+        }
+        public double AddToAnyInventory()
+        {
+            addToInventory++;
+            return addToInventory;
         }
     }
 }

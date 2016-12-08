@@ -8,13 +8,11 @@ namespace LemonadeStand
 {
     class Player
     {
-        public string playerName;
-        double playerMoney;
+        public double playerMoney;
         bool checkBalance;
-        public double SetPlayerStartingMoney()
+        public void SetPlayerStartingMoney()
         {
             playerMoney = 20.00;
-            return playerMoney;
         }
         public double GetPlayerMoney()
         {
@@ -40,5 +38,6 @@ namespace LemonadeStand
                 return checkBalance;
             }
         }
+
     }
 }

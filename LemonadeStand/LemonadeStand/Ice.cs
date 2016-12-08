@@ -16,6 +16,7 @@ namespace LemonadeStand
         }
         public double GetIcePrice()
         {
+            SetIcePrice();
             return icePrice;
         }
     }

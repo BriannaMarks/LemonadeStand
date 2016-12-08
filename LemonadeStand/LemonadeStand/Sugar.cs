@@ -16,9 +16,8 @@ namespace LemonadeStand
         }
         public double GetSugarPrice()
         {
-
+            SetSugarPrice();
             return sugarPrice;
         }
-
     }
 }

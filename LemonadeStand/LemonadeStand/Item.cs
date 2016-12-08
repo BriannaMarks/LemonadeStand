@@ -8,13 +8,13 @@ namespace LemonadeStand
 {
     class Item
     {
-        protected double costPerItem;
-
-        protected double GetItemPrice()
+        public double amountOfItems;
+        
+        public double AddToNumberOfItems(double bought)
         {
-            return costPerItem;
+            amountOfItems = amountOfItems + bought;
+            return amountOfItems;
         }
-
 
     }
 }

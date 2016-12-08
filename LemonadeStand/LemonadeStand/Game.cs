@@ -11,14 +11,13 @@ namespace LemonadeStand
         Day GameDay;
         public Player entrepreneur;
         Store Supermarket;
-        Inventory PlayerInventory;
+        public Inventory PlayerInventory;
         Weather LocalWeather;
-        Item Lemon;
-        Item Sugar;
-        Item Ice;
-
+        LemonadeRecipie Recipe;
+        Customer Buyer;
         int choosenNumberOfDays;
         bool startDailySale;
+
         public void RunLemonadeStand()
         {
             GameDay = new Day();
@@ -26,9 +25,8 @@ namespace LemonadeStand
             Supermarket = new Store();
             PlayerInventory = new Inventory();
             LocalWeather = new Weather();
-            Lemon = new Lemon();
-            Sugar = new Sugar();
-            Ice = new Ice();
+            Recipe = new LemonadeRecipie();
+            Buyer = new Customer();
 
             IntroduceTheGame();
             OfferInstructions();
@@ -107,39 +105,47 @@ namespace LemonadeStand
             {
                 startDailySale = false;
                 Console.WriteLine("It's day {0}", loopDurration);
-                Console.WriteLine("You have ${0}", entrepreneur.GetPlayerMoney());
-                while (startDailySale == false)
+                entrepreneur.GetPlayerMoney();
+                Console.WriteLine("You have ${0}",entrepreneur.GetPlayerMoney());
+                while (startDailySale == false && LocalWeather.WeatherHasBeenCreated() == false)
                 {
-                    UserInterface.DailyStartChoices();
-                    PlayerStartChoice();
+                    UserInterface.DailyMenuOptions();
+                    DailyMenuChoice();
                 }
+                Recipe.ChangeLemonadeRecipe();
+                int passersBy;
+                for(passersBy = 1; passersBy < Buyer.GetCustomers(); passersBy++)
+                {
+                    Buyer.TotalLemonadeBuyers(Buyer.CalculateBuyerInterest(LocalWeather.GetWeather(), LocalWeather.GetTemperature()), Recipe.LemonadePotency());
+                }
+                Console.WriteLine("You sold lemonade to {0} customers!", Buyer.GetNumberOfBuyers());
+                PlayerInventory.EmptyIceInventory();
             }
         }
-        private bool PlayerStartChoice()
+        private bool DailyMenuChoice()
         {
             switch (Console.ReadLine().ToLower())
             {
                 case "check the weather":
                     LocalWeather.RunWeather();
                     break;
-                case "check your supply inventory":
+                case "check inventory":
                     PlayerInventory.GetAllInventories();
                     break;
                 case "go to the store":
                     Supermarket.StoreMenu();
-                    Supermarket.StoreChoice(entrepreneur);
+                    Supermarket.StoreChoice(entrepreneur, PlayerInventory);
                     break;
                 case "start selling lemonade":
                     StartDailySale();
                     break;
-                //case "save your current progress":
                 case "help":
                     UserInterface.Instructions();
                     break;
                 default:
                     Console.WriteLine("Invalid entry. Please select where you would like to go.");
                     Console.WriteLine("Enter 'help' for more information.");
-                    PlayerStartChoice();
+                    DailyMenuChoice();
                     break;
             }
             return startDailySale;
@@ -149,6 +155,5 @@ namespace LemonadeStand
             startDailySale = true;
             return startDailySale;
         }
-
     }
 }

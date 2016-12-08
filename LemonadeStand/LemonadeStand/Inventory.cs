@@ -8,20 +8,20 @@ namespace LemonadeStand
 {
     class Inventory
     {
-        int lemonInventory;
-        int sugarInventory;
-        int iceInventory;
-        private int GetLemonInventory()
+        double lemonInventory;
+        double sugarInventory;
+        double iceInventory;
+        private double GetLemonInventory()
         {
             Console.WriteLine("Lemons: {0}", lemonInventory);
             return lemonInventory;
         }
-        private int GetSugarInventory()
+        private double GetSugarInventory()
         {
             Console.WriteLine("Sugar: {0}", sugarInventory);
             return sugarInventory;
         }
-        private int GetIceInventory()
+        private double GetIceInventory()
         {
             Console.WriteLine("Ice: {0}", iceInventory);
             return iceInventory;
@@ -42,6 +42,18 @@ namespace LemonadeStand
             GetLemonInventory();
             GetSugarInventory();
             GetIceInventory();
+        }
+        public void AddToLemonInventory(double amountBought)
+        {
+            lemonInventory = lemonInventory + amountBought;
+        }
+        public void AddToSugarInventory(double amountBought)
+        {
+            sugarInventory = sugarInventory + amountBought;
+        }
+        public void AddToIceInventory(double amountBought)
+        {
+            iceInventory = iceInventory + amountBought;
         }
     }
 }
